@@ -2,7 +2,7 @@ import UIKit
 import Combine
 
 @available(iOS 14, *)
-public class EnvironmentalConditions: ObservableObject {
+public class EnvironmentalConditionsObserver: ObservableObject {
     private let deviceBatteryLevelObserver: DeviceBatteryLevelObserver
     private let devicePowerModeObserver: DevicePowerModeObserver
     
