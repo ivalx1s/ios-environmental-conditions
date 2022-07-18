@@ -10,6 +10,7 @@ public class EnvironmentalConditions: ObservableObject {
     @Published public private(set) var deviceBatteryLevel: Float
     @Published public private(set) var devicePowerModeState: UIDevice.PowerModeState
     
+    
     public init(
         
     ) {
