@@ -5,10 +5,12 @@ import Combine
 public class EnvironmentalConditionsObserver: ObservableObject {
     private let deviceBatteryLevelObserver: DeviceBatteryLevelObserver
     private let devicePowerModeObserver: DevicePowerModeObserver
+	private let deviceNetworkStateObserver: DeviceNetworkStateObserver
     
     @Published public private(set) var deviceBatteryState: UIDevice.BatteryState
     @Published public private(set) var deviceBatteryLevel: Float
     @Published public private(set) var devicePowerModeState: UIDevice.PowerModeState
+	@Published public private(set) var deviceNetworkStatus: NetworkStatus
     
     
     public init(
@@ -16,11 +18,13 @@ public class EnvironmentalConditionsObserver: ObservableObject {
     ) {
         self.deviceBatteryLevelObserver = .init()
         self.devicePowerModeObserver = .init()
+		self.deviceNetworkStateObserver = .init()
         
         deviceBatteryLevel = deviceBatteryLevelObserver.deviceBatteryLevel
         deviceBatteryState = deviceBatteryLevelObserver.deviceBatteryState
         devicePowerModeState = devicePowerModeObserver.devicePowerModeState
-        
+		deviceNetworkStatus = deviceNetworkStateObserver.deviceNetworkStatus
+		
         initPipelines()
     }
     
@@ -28,6 +32,7 @@ public class EnvironmentalConditionsObserver: ObservableObject {
         initDeviceBatteryStateObserver()
         initDeviceBatteryLevelObserver()
         initDevicePowerModeObserver()
+		initDeviceNetworkStateObserver()
     }
     
     private func initDeviceBatteryStateObserver() {
@@ -47,4 +52,11 @@ public class EnvironmentalConditionsObserver: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: &$devicePowerModeState)
     }
+	
+	private func initDeviceNetworkStateObserver() {
+		deviceNetworkStateObserver.$deviceNetworkStatus
+			.removeDuplicates()
+			.receive(on: DispatchQueue.main)
+			.assign(to: &$deviceNetworkStatus)
+	}
 }

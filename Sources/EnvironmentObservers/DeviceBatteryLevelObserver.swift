@@ -2,12 +2,12 @@ import Combine
 import UIKit
 
 @available(iOS 14, *)
-//@MainActor
 class DeviceBatteryLevelObserver: ObservableObject {
     
     @Published internal private(set) var deviceBatteryState: UIDevice.BatteryState
     @Published internal private(set) var deviceBatteryLevel: Float
     
+	
     init(
     
     ) {
@@ -24,6 +24,7 @@ class DeviceBatteryLevelObserver: ObservableObject {
     private static let batteryLevelNotificationName = UIDevice.batteryLevelDidChangeNotification
     private static let batteryStateNotificationName = UIDevice.batteryStateDidChangeNotification
     
+	
     private static func enableBatteryMonitoring() {
         UIDevice.current.isBatteryMonitoringEnabled = true
     }
