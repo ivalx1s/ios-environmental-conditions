@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Network
 
+#warning("exposure to data race around access to status; change network service to Actor")
 class NetworkService {
 	private let monitor = NWPathMonitor()
 	
